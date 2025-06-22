@@ -8,14 +8,15 @@ const { generateAccessToken, authenticateToken } = require("../Middleware/Authen
 router.post("/register", async (req, res) => {
 	// if(req.body)
 
-	const hash = await bcrypt.hash(req.body.password, process.env.PASSWORD_SALT);
+	const salt = bcrypt.genSaltSync(10);
+	const passHash = bcrypt.hashSync(req.body.password, salt);
+
 	const { uuid, username } = req.body;
 
 	const data = new userModel({
 		uuid,
 		username,
-		password: hash
-		// password: password
+		password: passHash
 	});
 
 	try {
@@ -56,13 +57,16 @@ router.post("/login", async (req, res) => {
 
 router.post("/users/create", authenticateToken, async (req, res) => {
 	try {
-		const hash = await bcrypt.hash(req.body.password, process.env.PASSWORD_SALT);
+
+		const salt = bcrypt.genSaltSync(10);
+		const passHash = bcrypt.hashSync(req.body.password, salt);
+
 		const { uuid, username } = req.body;
 
 		const data = new userModel({
 			uuid,
 			username,
-			password: hash
+			password: passHash
 		});
 
 		await data.save();
