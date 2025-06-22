@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
-export function generateAccessToken(username) {
+function generateAccessToken(username) {
 	return jwt.sign(username, process.env.TOKEN_SECRET);
 }
 
-export function authenticateToken(req, res, next) {
+function authenticateToken(req, res, next) {
 	const bearerToken = req.headers["authorization"];
 
 	if (bearerToken) {
@@ -26,3 +26,8 @@ export function authenticateToken(req, res, next) {
 		});
 	}
 } 
+
+module.exports = {
+	generateAccessToken,
+	authenticateToken
+};
