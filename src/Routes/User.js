@@ -2,7 +2,7 @@ const express = require("express");
 const userModel = require("../Models/User");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { authenticateToken } = require("../Middleware/Authentication/authentication.middleware");
+const { generateAccessToken, authenticateToken } = require("../Middleware/Authentication/authentication.middleware");
 
 router.post("/register", async (req, res) => {
 	// if(req.body)
@@ -71,3 +71,5 @@ router.post("/users/create", authenticateToken, async (req, res) => {
 		res.status(400).json({ error: error?.message })
 	}
 });
+
+module.exports = router();
