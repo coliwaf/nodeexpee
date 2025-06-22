@@ -11,6 +11,13 @@ const serverLog = logger.createNamedLogger("Server");
 
 const app = express();
 
+/* app.use(session({
+	secret: 'some secret',
+	cookie: {maxAge: 30000},
+	saveUninitialized: false,
+	store
+})); */
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
@@ -20,8 +27,10 @@ serverLog.info("Registering user route.");
 //user api route suffix
 app.use("/api", userRoutes);
 
-const server = app.listen(8081, 'localhost', () => {
-	serverLog.info("API is listening on port 8081");
+const PORT = process.env.PORT || 3000;
+
+const server = app.listen(PORT, 'localhost', () => {
+	serverLog.info(`API is listening on port ${PORT}`);
 
 	connectToDatabase(process.env.DATABASE_URL)
 		.then(() => {
