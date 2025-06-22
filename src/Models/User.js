@@ -1,20 +1,23 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-	uuid: {
+	/* uuid: {
 		required: true,
 		type: String
-	},
+	}, */
 	username: {
 		required: true,
+		unique: [true, 'Username already taken'],
 		type: String
 	},
 	password: {
-		required: false,
+		required: true,
 		type: String
 	},
 	/* email: {
 		required: true,
+		unique: [true, 'Email Taken: An account with this Email already exists'],
+		lowercase: true,
 		type: String
 	} */
 });
