@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const logger = require("node-color-log");
 const connectToDatabase = require("./Objects/Database");
@@ -12,7 +11,8 @@ const serverLog = logger.createNamedLogger("Server");
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 app.use(cors());
 

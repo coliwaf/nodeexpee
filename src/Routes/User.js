@@ -15,6 +15,7 @@ router.post("/register", async (req, res) => {
 		uuid,
 		username,
 		password: hash
+		// password: password
 	});
 
 	try {
@@ -27,7 +28,7 @@ router.post("/register", async (req, res) => {
 		res.status(400).json({ error: error?.message });
 	}
 });
-/* 
+
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
 
@@ -72,5 +73,16 @@ router.post("/users/create", authenticateToken, async (req, res) => {
 		res.status(400).json({ error: error?.message })
 	}
 });
- */
+
+router.get("/users", (req, res) => {
+	userModel.find({})
+		.then((users) => {
+			res.json(users);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	// res.json({...user});
+});
+
 module.exports = router;
