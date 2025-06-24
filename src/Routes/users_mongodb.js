@@ -1,11 +1,28 @@
-const express = require("express");
-const userModel = require("../Models/User");
-const router = express.Router();
-// const router = express();
-const bcrypt = require("bcrypt");
-const { generateAccessToken, authenticateToken } = require("../Middleware/Authentication/authentication.middleware");
+import { Router } from "express";
+import userModel from "../Models/User.js";
+const router = Router();
+import bcrypt from "bcrypt";
+import { generateAccessToken, authenticateToken } from "../Middleware/Authentication/authentication.middleware.js";
+import db from "../Objects/Db.js";
 
-router.post("/register", async (req, res) => {
+/* router.use((req, res, next) => {
+	console.log('request made to /USERS route');
+	next();
+}); */
+
+router.post("/", (req, res) => {
+	const { username, password } = req.body;
+	if (username && password){
+		try {
+			db.promise().query(`INSERT INTO USERS VALUES('${username}', '${password}')`);
+			res.status(201).send({ msg: 'Created User'});		
+		} catch (error) {
+			console.log(error);
+		}
+	}
+});
+
+/* router.post("/register", async (req, res) => {
 	// if(req.body)
 
 	const salt = bcrypt.genSaltSync(10);
@@ -55,7 +72,7 @@ router.post("/login", async (req, res) => {
 	}
 });
 
-router.post("/users/create", authenticateToken, async (req, res) => {
+router.post("/create", authenticateToken, async (req, res) => {
 	try {
 
 		const salt = bcrypt.genSaltSync(10);
@@ -87,6 +104,8 @@ router.get("/users", (req, res) => {
 			console.log(error);
 		});
 	// res.json({...user});
-});
+}); */
 
-module.exports = router;
+// export default router;
+export { router };
+// module.exports = { router };

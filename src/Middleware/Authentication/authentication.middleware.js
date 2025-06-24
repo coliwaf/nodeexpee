@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import 'dotenv/config.js'; // Import config without the need to call dotenv.config()
+// require("dotenv").config();
 
 function generateAccessToken(username) {
 	return jwt.sign(username, process.env.TOKEN_SECRET);
@@ -27,7 +27,11 @@ function authenticateToken(req, res, next) {
 	}
 } 
 
-module.exports = {
+/* module.exports = {
 	generateAccessToken,
 	authenticateToken
-};
+}; */
+export { 
+	generateAccessToken,
+	authenticateToken
+ };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 function connectToDatabase(databaseString) {
 	return new Promise((resolve, reject) => {
@@ -8,4 +8,5 @@ function connectToDatabase(databaseString) {
 	});
 }
 
-module.exports = connectToDatabase;
+export { connectToDatabase };
+// module.exports = connectToDatabase;

@@ -1,25 +1,73 @@
-const mongoose = require("mongoose");
+import { sequelize } from "../Objects/sqlite_db.js";
+import { Model, DataTypes } from "sequelize";
 
-const userSchema = mongoose.Schema({
-	/* uuid: {
-		required: true,
-		type: String
-	}, */
-	username: {
-		required: true,
-		unique: [true, 'Username already taken'],
-		type: String
+/* const User = sequelize.define('users', {
+	id:{
+		type:DataTypes.BIGINT, 
+		autoIncrement: true,
+		primaryKey: true,
+		// allowNull:false
 	},
-	password: {
-		required: true,
-		type: String
+	username:{
+		type:DataTypes.STRING,
+		allowNull:false,
+		unique: true
 	},
-	/* email: {
-		required: true,
-		unique: [true, 'Email Taken: An account with this Email already exists'],
-		lowercase: true,
-		type: String
-	} */
+	email:{
+		type:DataTypes.STRING,
+		allowNull:false,
+		unique: true
+	},
+	password:{
+		type:DataTypes.INTEGER,
+		allowNull:false
+	},
+	created_at:{
+		type:DataTypes.DATE,
+		defaultValue: DataTypes.NOW,
+		allowNull:false
+	},
+	updated_at:{
+		type:DataTypes.DATE,
+		defaultValue: DataTypes.NOW,
+		allowNull:false
+	}
+
+	// // It is possible to create foreign keys:
+    // book_id: {
+	// 	type: DataTypes.INTEGER,
+  
+	// 	references: {
+	// 	  // This is a reference to another model
+	// 	  model: Book,
+  
+	// 	  // This is the column name of the referenced model
+	// 	  key: 'id',
+  
+	// 	},
+}); */
+
+class User extends Model {};
+
+User.init({
+	username:{
+		type:DataTypes.STRING,
+		// allowNull:false,
+		unique: true
+	},
+	email:{
+		type:DataTypes.STRING,
+		// allowNull:false,
+		unique: true
+	},
+	password:{
+		type:DataTypes.INTEGER,
+		// allowNull:false
+	},
+},{
+	sequelize,
+	modelName: 'user'
 });
+// console.log(User === sequelize.models.User);
 
-module.exports = mongoose.model("user", userSchema);
+export { User };
