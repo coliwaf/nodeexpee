@@ -1,9 +1,8 @@
-
-import { Book as books } from "../Models/Book.js";
+import { Book } from "../Models/Book.js";
 
 //get all books
-const getBooks = async (req, res) => {
-	const books = await Books.findAndCountAll();
+const getBook = async (req, res) => {
+	const books = await Book.findAndCountAll();
 	res.status(200).json({
 		error: false,
 		result:books
@@ -12,7 +11,7 @@ const getBooks = async (req, res) => {
 
 //create new book
 const postBook = async (req, res) => {
-	const books = await Books.create(req.body);
+	const books = await Book.create(req.body);
 	res.status(201).json({
 		error: false,
 		message: "Book Created",
@@ -22,7 +21,7 @@ const postBook = async (req, res) => {
 
 //get book with id
 const getBookById = async (req, res) => {
-	const book = await Books.findByPk(req.params.id);
+	const book = await Book.findByPk(req.params.id);
 	res.status(200).json({
 		error: false,
 		message:`Book with id ${req.params.id} is fetched`,
@@ -32,8 +31,8 @@ const getBookById = async (req, res) => {
 
 //update a book with id
 const updateBook = async (req, res) => {
-	const isUpdated = await Books.update(req.body, {where: {id: req.params.id}});
-	const book = await Books.findByPk(req.params.id);
+	const isUpdated = await Book.update(req.body, {where: {id: req.params.id}});
+	const book = await Book.findByPk(req.params.id);
 	res.status(202).json({
 		error: false,
 		message: `Book with id ${req.params.id} is updated`,
@@ -44,7 +43,7 @@ const updateBook = async (req, res) => {
 
 //delete a book 
 const deleteBook = async (req, res) => {
-	const isDeleted = await Books.destroy({where: {id: req.params.id}});
+	const isDeleted = await Book.destroy({where: {id: req.params.id}});
 	if (!isDeleted) throw new Error("Task not found");	
 	res.status(204).json({
 		error: false,
@@ -54,7 +53,7 @@ const deleteBook = async (req, res) => {
 }
 
 export {
-	getBooks,
+	getBook,
 	postBook,
 	getBookById,
 	updateBook,

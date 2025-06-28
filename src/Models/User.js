@@ -34,7 +34,7 @@ import { Model, DataTypes } from "sequelize";
 	}
 
 	// // It is possible to create foreign keys:
-    // book_id: {
+	// book_id: {
 	// 	type: DataTypes.INTEGER,
   
 	// 	references: {
@@ -47,27 +47,62 @@ import { Model, DataTypes } from "sequelize";
 	// 	},
 }); */
 
-class User extends Model {};
+class User extends Model { };
 
 User.init({
-	username:{
-		type:DataTypes.STRING,
-		// allowNull:false,
+	/* id:{
+		type:DataTypes.BIGINT, 
+		autoIncrement: true,
+		primaryKey: true,
+		allowNull:false
+	}, */
+	title: {
+		// If Owner, Customer, Employee
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	firstName: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	lastName: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	username: {
+		type: DataTypes.STRING,
+		allowNull:false,
 		unique: true
 	},
-	email:{
-		type:DataTypes.STRING,
-		// allowNull:false,
+	email: {
+		type: DataTypes.STRING,
+		allowNull:false,
 		unique: true
 	},
-	password:{
-		type:DataTypes.INTEGER,
+	password: {
+		type: DataTypes.INTEGER,
 		// allowNull:false
 	},
-},{
+	image: {
+		type: DataTypes.STRING,
+		allowNull:false,
+	},
+	signature: {
+		type: DataTypes.STRING,
+		allowNull:false,
+	},
+	role_id: {
+		type: DataTypes.INTEGER
+	},
+	user_details_id: {
+		type: DataTypes.INTEGER
+	},
+}, {
 	sequelize,
 	modelName: 'user'
 });
+
+// User.belongsToMany(roles, { through: userRoles });
 // console.log(User === sequelize.models.User);
 
 export { User };

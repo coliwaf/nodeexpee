@@ -32,7 +32,7 @@ app.use(cors());
 
 serverLog.info("Registering api routes.");
 app.use("/api/v1", userRoutes);
-app.use("/api/v1", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 // app.use("/api/v1", bookRoutes);
 
 const PORT = process.env.PORT || 3000;
